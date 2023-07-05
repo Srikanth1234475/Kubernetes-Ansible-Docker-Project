@@ -17,7 +17,7 @@
       ignore_errors: yes
 
     - name: pull docker image from dockerhub
-      command: docker pull ameintu/simple-devops-image:latest
+      command: docker pull suramkalyanreddy/docker-image:latest
 
-    - name: creating docker container using simple-devops-image
-      command: docker run -d --name simple-devops-container -p 8080:8080 ameintu/simple-devops-image:latest
+    - name: creating docker container using docker-image
+      command: docker run -d --name docker-container -p 8085:8080 suramkalyanreddy/docker-image:latest
