@@ -1,0 +1,4 @@
+- name: Copy WAR file to /opt/docker
+  copy:
+    src: //opt/docker
+    dest: /opt/docker/webapp.war
