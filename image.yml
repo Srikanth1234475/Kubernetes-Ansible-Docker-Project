@@ -1,20 +1,16 @@
 ---
-- hosts: all
-  become: yes
-
+- name: Build and Push Docker Image
+  hosts: all
+  become: true
   tasks:
+    - name: Build Docker image
+      command: docker build -t mallikarjun2020/webapp:latest /opt/docker
+      become_user: mallikarjun2020
 
-    - name: create docker image using war file
-      command: docker build -t simple-devops-image:latest .
-      args:
-        chdir: /opt/docker
+    - name: Login to Docker Hub
+      command: docker login -u mallikarjun2020 -p Arjun@2uma
+      become_user: mallikarjun2020
 
-    - name: create tag to image
-      command: docker tag simple-devops-image suramkalyanreddy/simple-devops-image
-
-    - name: push image on to dockerhub
-      command: docker push suramkalyanreddy/simple-devops-image
-
-    - name: remove docker images from ansible server
-      command: docker rmi tomcat simple-devops-image:latest suramkalyanreddy/simple-devops-image
-      ignore_errors: yes
+    - name: Push Docker image to Docker Hub
+      command: docker push mallikarjun2020/webapp:latest
+      become_user: mallikarjun2020
