@@ -1,7 +1,6 @@
 ---
 - name: Manage Docker Containers
   hosts: all
-  become: true
   tasks:
     - name: Stop running containers
       command: docker stop $(docker ps -q)
