@@ -1,1 +1,10 @@
 
+- name: Create directory for Docker build
+  hosts: all
+  become: true
+  tasks:
+    - name: Create /opt/docker directory
+      file:
+        path: /opt/docker
+        state: directory
+        mode: '0755'
