@@ -1,23 +1,22 @@
 ---
-- hosts: all
-  become: yes
-
+- name: Manage Docker Containers
+  hosts: all
+  become: true
   tasks:
+    - name: Stop running containers
+      command: docker stop $(docker ps -q)
+      ignore_errors: true
+      become_user: your_docker_user
 
-    - name: stop current running container
-      command: docker stop simple-devops-container
-      ignore_errors: yes
+    - name: Remove stopped containers
+      command: docker rm $(docker ps -aq)
+      ignore_errors: true
+      become_user: your_docker_user
 
-    - name: remove stopped docker container
-      command: docker rm simple-devops-container
-      ignore_errors: yes
+    - name: Pull Docker image from Docker Hub
+      command: docker pull mallikarjun2020/webapp:latest
+      become_user: your_docker_user
 
-    - name: remove current docker image
-      command: docker rmi suramkalyanreddy/simple-devops-image:latest
-      ignore_errors: yes
-
-    - name: pull docker image from dockerhub
-      command: docker pull suramkalyanreddy/simple-devops-image:latest
-
-    - name: creating docker container using simple-devops-image
-      command: docker run -d --name simple-devops-container -p 8080:8080 ameintu/simple-devops-image:latest
+    - name: Create Docker container
+      command: docker run -d --name simple-devops-container -p 8080:8080 mallikarjun2020/webapp:latest
+      become_user: your_docker_user
