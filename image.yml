@@ -1,7 +1,6 @@
 ---
 - name: Build and Push Docker Image
   hosts: all
-  become: true
   tasks:
     - name: Build Docker image
       command: docker build -t mallikarjun2020/webapp:latest /opt/docker
