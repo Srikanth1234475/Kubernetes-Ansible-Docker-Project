@@ -1,15 +1,10 @@
----
-- name: Build and Push Docker Image
-  hosts: all
+- hosts: all
   tasks:
-    - name: Build Docker image
-      command: docker build -t mallikarjun2020/webapp:latest /opt/docker
-      become_user: mallikarjun2020
-
-    - name: Login to Docker Hub
-      command: docker login -u mallikarjun2020 -p Arjun@2uma
-      become_user: mallikarjun2020
-
-    - name: Push Docker image to Docker Hub
-      command: docker push mallikarjun2020/webapp:latest
-      become_user: mallikarjun2020
+   - name: stop container
+     shell: docker container stop mydockercontainer
+   - name: remove container
+     shell: docker container rm mydockercontainer
+   - name: remove docker image
+     shell: docker image rmi suramkalyanreddy/docker_image
+   - name: create new container
+     shell: docker container run -itd --name mydockercontainer -p 9000:80 suramkalyanreddy/docker_image
