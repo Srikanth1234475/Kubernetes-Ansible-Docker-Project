@@ -1,21 +1,10 @@
----
-- name: Manage Docker Containers
-  hosts: all
+- hosts: all
   tasks:
-    - name: Stop running containers
-      command: docker stop $(docker ps -q)
-      ignore_errors: true
-      become_user: your_docker_user
-
-    - name: Remove stopped containers
-      command: docker rm $(docker ps -aq)
-      ignore_errors: true
-      become_user: your_docker_user
-
-    - name: Pull Docker image from Docker Hub
-      command: docker pull mallikarjun2020/webapp:latest
-      become_user: your_docker_user
-
-    - name: Create Docker container
-      command: docker run -d --name simple-devops-container -p 8080:8080 mallikarjun2020/webapp:latest
-      become_user: your_docker_user
+    - name: stop container
+      shell:  docker container stop rockstar-container                    #name of container 
+    - name: remove container
+      shell: docker container rm rockstar-container
+    - name: remove docker image
+      shell: docker image rm suramkalyanreddy/devops-webapp5                            #name of images (docker images)
+    - name: create new container
+      shell: docker container run -itd --name rockstar-container -p 9000:80 suramkalyanreddy/devops-webapp5     #(docker-job>> name of jenkins job)
